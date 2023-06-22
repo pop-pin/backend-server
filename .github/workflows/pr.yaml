@@ -1,0 +1,23 @@
+name: "Workflow : Pull Request"
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:  # workflow_dispatch 호출
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+
+      - name: Test with Gradle
+        run: |
+          ./gradlew test
