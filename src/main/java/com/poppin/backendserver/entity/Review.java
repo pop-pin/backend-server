@@ -10,4 +10,10 @@ public class Review {
     private int rating;
     private String title;
     private String text;
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }
