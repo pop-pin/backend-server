@@ -7,7 +7,7 @@ on:
   workflow_dispatch:  # workflow_dispatch 호출
 
 jobs:
-  build-and-deploy:
+  pr-integration-check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
