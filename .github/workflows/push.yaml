@@ -28,3 +28,10 @@ jobs:
       - name: Build with Jib
         run: |
           ./gradlew jib
+      
+      - name: Rollout Deployment
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+        with:
+          args: rollout restart deployment ${{ secrets.KUBE_DEPLOYMENT_NAME }} -n ${{ secrets.KUBE_NAMESPACE }}
