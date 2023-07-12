@@ -1,20 +1,43 @@
 package com.poppin.backendserver.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity @Getter @Setter
-public class Location {
+import java.util.ArrayList;
+import java.util.List;
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Entity
+@Getter
+@NoArgsConstructor
+public class Location extends BaseEntity{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "location_id")
     private Long id;
+    @Column(nullable = false)
     private String name;
-    private String country;
-    private String state;
-    private String city;
+    @Column(nullable = false)
     private String address;
+    @Column(nullable = false)
+    private String number;
+    private Double rating;
+    private String closedDay;
+    @Column(nullable = false)
+    private String openTime;
+    @OneToMany(mappedBy = "location", cascade = CascadeType.REMOVE)
+    private List<Review> reviews = new ArrayList<>();
+
+    @Builder
+    public Location(String name, String address, String number, Double rating, String closedDay, String openTime) {
+        this.name = name;
+        this.address = address;
+        this.number = number;
+        this.rating = rating;
+        this.closedDay = closedDay;
+        this.openTime = openTime;
+    }
 }

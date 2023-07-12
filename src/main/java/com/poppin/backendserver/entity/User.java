@@ -3,19 +3,54 @@ package com.poppin.backendserver.entity;
 import com.poppin.backendserver.enums.Gender;
 import com.poppin.backendserver.enums.UserRole;
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-public class User {
+@Getter @Setter
+@NoArgsConstructor
+public class User extends BaseEntity{
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id;
+    @Column(nullable = false, name = "UID")
+    private String userId;
+    @Column(nullable = false)
+    private String password;
+    @Column(nullable = false)
     private String name;
-    @Column(unique = true)
-    private String email;
-    private String profileImageUrl;
-    private int age;
     @Enumerated(EnumType.STRING)
     private Gender gender;
+    @Column(nullable = false)
+    private String phone;
+    @Column(nullable = false)
+    private int age;
+    private String profileImageUrl;
+    @Column(nullable = false,unique = true)
+    private String email;
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private UserRole userRole;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
+    private List<Review> reviews = new ArrayList<>();
+
+    @Builder
+    public User(String userId, String password, String name, Gender gender, String phone, Integer age, String profileImageUrl, String email, UserRole userRole) {
+        this.userId = userId;
+        this.password = password;
+        this.name = name;
+        this.gender = gender;
+        this.phone = phone;
+        this.age = age;
+        this.profileImageUrl = profileImageUrl;
+        this.email = email;
+        this.userRole = userRole;
+    }
 }
