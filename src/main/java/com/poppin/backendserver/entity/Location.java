@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
+@Getter@Setter
 @NoArgsConstructor
 public class Location extends BaseEntity{
 
@@ -23,21 +23,26 @@ public class Location extends BaseEntity{
     @Column(nullable = false)
     private String address;
     @Column(nullable = false)
-    private String number;
+    private String telephone;
     private Double rating;
     private String closedDay;
     @Column(nullable = false)
     private String openTime;
+    private Long latitude;
+    private Long lontitude;
     @OneToMany(mappedBy = "location", cascade = CascadeType.REMOVE)
     private List<Review> reviews = new ArrayList<>();
 
     @Builder
-    public Location(String name, String address, String number, Double rating, String closedDay, String openTime) {
+    public Location(Long id, String name, String address, String telephone, Double rating, String closedDay, String openTime, Long latitude, Long lontitude) {
+        this.id = id;
         this.name = name;
         this.address = address;
-        this.number = number;
+        this.telephone = telephone;
         this.rating = rating;
         this.closedDay = closedDay;
         this.openTime = openTime;
+        this.latitude = latitude;
+        this.lontitude = lontitude;
     }
 }

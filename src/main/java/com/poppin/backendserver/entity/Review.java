@@ -8,8 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "reviews")
-@Getter @Setter
+@Getter@Setter
 @NoArgsConstructor
 public class Review extends BaseEntity {
 
@@ -18,13 +17,7 @@ public class Review extends BaseEntity {
     @Column(name = "review_id")
     private Long id;
     @Column(nullable = false)
-    private int overallRating;
-    @Column(nullable = false)
-    private int foodRating;
-    @Column(nullable = false)
-    private int serviceRating;
-    @Column(nullable = false)
-    private int moodRating;
+    private int rating;
     @Column(nullable = false)
     private String title;
     @Column(nullable = false)
@@ -37,12 +30,12 @@ public class Review extends BaseEntity {
     private User user;
 
     @Builder
-    public Review(int overallRating, int foodRating, int serviceRating, int moodRating, String title, String text) {
-        this.overallRating = overallRating;
-        this.foodRating = foodRating;
-        this.serviceRating = serviceRating;
-        this.moodRating = moodRating;
+    public Review(Long id, int rating, String title, String text, Location location, User user) {
+        this.id = id;
+        this.rating = rating;
         this.title = title;
         this.text = text;
+        this.location = location;
+        this.user = user;
     }
 }
