@@ -28,9 +28,9 @@ public class LocationController {
      * 검색 및 페이징
      */
     @GetMapping("/search")
-        public Page<LocationDTO> searchLocation(@RequestParam("keyword") String keyword, @PageableDefault(size = 6, sort = "id",direction = Sort.Direction.DESC)Pageable pageable) {
+        public Page<LocationDTO> searchLocation(@RequestParam("keyword") String keyword, @PageableDefault(size = 6)Pageable pageable) {
         Page<Location> page = locationService.searchLocation(keyword, pageable);
-        return page.map(member -> new LocationDTO(member.getId(), member.getName(), member.getAddress(), member.getTelephone(), member.getRating(), member.getClosedDay(), member.getOpenTime(), member.getLatitude(), member.getLontitude()));
+        return page.map(LocationDTO::new);
     }
 
     @GetMapping("/{location_id}")
@@ -45,7 +45,7 @@ public class LocationController {
 
     @GetMapping("/{location_id}/reviews")
     public ResponseEntity<ReviewDTO> getReviews(@PathVariable("location_id") Long id) {
-        return ResponseEntity.ok((ReviewDTO) reviewService.getReview(id));
+        return ResponseEntity.ok((ReviewDTO) reviewService.getLocationReview(id));
     }
 
     @PostMapping("/create")
@@ -57,8 +57,8 @@ public class LocationController {
 
     @PutMapping("/{location_id}")
     public ResponseEntity<Long> updateLocation(@PathVariable("location_id") Long id, @RequestBody LocationDTO locationDTO) {
-        Long updatedLocationId = locationService.updateLocation(id, convertToEntity(locationDTO));
-        return ResponseEntity.ok(updatedLocationId);
+        locationService.updateLocation(id, convertToEntity(locationDTO));
+        return ResponseEntity.ok(id);
     }
 
     @DeleteMapping("/{location_id}")
@@ -73,7 +73,8 @@ public class LocationController {
                 .name(location.getName())
                 .address(location.getAddress())
                 .telephone(location.getTelephone())
-                .rating(location.getRating())
+                .sumRating(location.getSumRating())
+                .countRating(location.getCountRating())
                 .openTime(location.getOpenTime())
                 .closedDay(location.getClosedDay())
                 .latitude(location.getLatitude())
@@ -88,7 +89,8 @@ public class LocationController {
                 .name(locationDTO.getName())
                 .address(locationDTO.getAddress())
                 .telephone(locationDTO.getTelephone())
-                .rating(locationDTO.getRating())
+                .sumRating(locationDTO.getSumRating())
+                .countRating(locationDTO.getCountRating())
                 .closedDay(locationDTO.getClosedDay())
                 .openTime(locationDTO.getOpenTime())
                 .latitude(locationDTO.getLatitude())

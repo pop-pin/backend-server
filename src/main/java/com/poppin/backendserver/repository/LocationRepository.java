@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface LocationRepository extends JpaRepository<Location, Long> {
-    Page<Location> findByKeyword(String keyword, Pageable pageable);
+    Page<Location> findByNameLikeIgnoreCase(String name, Pageable pageable);
 
     List<Location> findByName(String name);
 

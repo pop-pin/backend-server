@@ -21,8 +21,8 @@ public class ReviewController {
 
     @PutMapping("/{review_id}")
     public ResponseEntity<Long> updateReview(@PathVariable("review_id") Long id, @RequestBody ReviewDTO reviewDTO) {
-        Long updatedReviewId = reviewService.updateReview(id, convertToEntity(reviewDTO));
-        return ResponseEntity.ok(updatedReviewId);
+        reviewService.updateReview(id, convertToEntity(reviewDTO));
+        return ResponseEntity.ok(id);
     }
 
     @DeleteMapping("/{review_id}")
@@ -37,16 +37,17 @@ public class ReviewController {
                 .rating(review.getRating())
                 .title(review.getTitle())
                 .locationId(review.getLocation().getId())
-                .userId(review.getUser().getId())
+//                .userId(review.getUser().getId())
                 .build();
         return reviewDTO;
     }
     private Review convertToEntity(ReviewDTO reviewDTO) {
-        Review review = new Review();
-        review.setId(reviewDTO.getId());
-        review.setRating(reviewDTO.getRating());
-        review.setTitle(reviewDTO.getTitle());
-        review.setText(reviewDTO.getText());
+        Review review = Review.builder()
+                .id(reviewDTO.getId())
+                .rating(reviewDTO.getRating())
+                .title(reviewDTO.getTitle())
+                .text(reviewDTO.getText())
+                .build();
         return review;
     }
 }

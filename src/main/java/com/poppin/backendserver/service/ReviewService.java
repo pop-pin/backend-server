@@ -3,7 +3,6 @@ package com.poppin.backendserver.service;
 import com.poppin.backendserver.entity.Review;
 import com.poppin.backendserver.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,13 +20,16 @@ public class ReviewService {
         reviewRepository.save(review);
         return review.getId();
     }
+    public Optional<Review> getReview(Long review_id){
+        return reviewRepository.findById(review_id);
+    }
 
-    public List<Review> getReview(Long location_id) {
+    public List<Review> getLocationReview(Long location_id) {
         return reviewRepository.findByLocationId(location_id);
     }
 
     @Transactional
-    public Long updateReview(Long id, Review updateReview) {
+    public void updateReview(Long id, Review updateReview) {
         Optional<Review> optionalReview = reviewRepository.findById(id);
 
         if (optionalReview.isPresent()) {
@@ -35,12 +37,12 @@ public class ReviewService {
             review.setRating(updateReview.getRating());
             review.setTitle(updateReview.getTitle());
             review.setText(updateReview.getText());
-            return updateReview.getId();
+
         } else {
             throw new IllegalStateException("리뷰 업데이트에 실패하였습니다.");
         }
     }
-
+    @Transactional
     public Long deleteReview(Long id) {
         reviewRepository.deleteById(id);
         return id;

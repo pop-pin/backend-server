@@ -22,8 +22,8 @@ public class LocationService {
         return locationRepository.findById(id);
     }
 
-    public Page<Location> searchLocation(String keyword, Pageable pageable) {
-        return locationRepository.findByKeyword(keyword, pageable);
+    public Page<Location> searchLocation(String name, Pageable pageable) {
+        return locationRepository.findByNameLikeIgnoreCase(name, pageable);
     }
     @Transactional
     public Long saveLocation(Location location) {
@@ -41,16 +41,14 @@ public class LocationService {
 
 
     @Transactional
-    public Long updateLocation(Long id, Location updatedLocation) {
+    public void updateLocation(Long id, Location updatedLocation) {
         Optional<Location> optionalLocation = locationRepository.findById(id);
 
         if (optionalLocation.isPresent()) {
             Location location = optionalLocation.get();
-            location.setName(updatedLocation.getName());
             location.setTelephone(updatedLocation.getTelephone());
             location.setOpenTime(updatedLocation.getOpenTime());
             location.setClosedDay(updatedLocation.getClosedDay());
-            return updatedLocation.getId();
         } else {
             throw new IllegalStateException("가게 정보 업데이트에 실패하였습니다.");
         }
