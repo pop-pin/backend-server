@@ -19,6 +19,9 @@ jobs:
           java-version: '17'
           distribution: 'corretto'
 
+      - name: Launch test DB
+        run: docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=1234 -e MYSQL_DATABASE=poppin mysql:8
+
       - name: Test with Gradle
         run: |
           ./gradlew test
