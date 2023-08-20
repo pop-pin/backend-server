@@ -25,6 +25,11 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
 
+      - name: Download APM Agent
+        run: |
+          mkdir -p src/main/jib/elastic-apm
+          curl -o 'src/main/jib/elastic-apm/elastic-apm-agent.jar' -L 'https://oss.sonatype.org/service/local/artifact/maven/redirect?r=releases&g=co.elastic.apm&a=elastic-apm-agent&v=1.42.0'
+
       - name: Build with Jib
         run: |
           ./gradlew jib
