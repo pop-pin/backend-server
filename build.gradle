@@ -45,7 +45,7 @@ jib {
 	}
 	container {
 		ports = ["8080"]
-		jvmFlags = ['-Dspring.profiles.active=prod', '-XX:+UseContainerSupport', '-Dserver.port=8080', '-Dfile.encoding=UTF-8', '-Delastic.apm.service_name=backend-server', '-Delastic.apm.server_url=http://apm-server-apm-server.elastic.svc.cluster.local:8200', '-Delastic.apm.environment=production', '-Delastic.apm.application_packages=com.poppin']
+		jvmFlags = ['-Dspring.profiles.active=prod', '-XX:+UseContainerSupport', '-Dserver.port=8080', '-Dfile.encoding=UTF-8', '-javaagent:/app/libs/elastic-apm-agent-1.38.0.jar', '-Delastic.apm.service_name=backend-server', '-Delastic.apm.server_url=http://apm-server-apm-server.elastic.svc.cluster.local:8200', '-Delastic.apm.secret_token=', '-Delastic.apm.environment=production', '-Delastic.apm.application_packages=com.poppin']
 	}
 }
 
