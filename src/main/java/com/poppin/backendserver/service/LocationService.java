@@ -23,7 +23,7 @@ public class LocationService {
     }
 
     public Page<Location> searchLocation(String name, Pageable pageable) {
-        return locationRepository.findByNameLikeIgnoreCase(name, pageable);
+        return locationRepository.findByNameContainingIgnoreCase(name, pageable);
     }
     @Transactional
     public Long saveLocation(Location location) {

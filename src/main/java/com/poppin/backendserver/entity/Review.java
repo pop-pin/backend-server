@@ -16,24 +16,26 @@ public class Review extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "review_id")
     private Long id;
-//    @Column(nullable = false)
+    @Column(nullable = false)
     private int rating;
-//    @Column(nullable = false)
+    @Column(nullable = false)
     private String title;
     @Column(nullable = false)
     private String text;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id")
     private Location location;
-//    @ManyToOne(fetch = FetchType.LAZY)
+
+    //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "user_id")
 //    private User user;
 
     @Builder
-    public Review(Long id, int rating, String title, String text) {
+    public Review(Long id, int rating, String title, String text, Location location) {
         this.id = id;
         this.rating = rating;
         this.title = title;
         this.text = text;
+        this.location = location;
     }
 }

@@ -25,8 +25,8 @@ public class Location extends BaseEntity{
     private String address;
     @Column(nullable = false)
     private String telephone;
-    private Long sumRating;
-    private Long countRating;
+    private Long ratingSum;
+    private Long ratingCount;
     private String closedDay;
     @Column(nullable = false)
     private String openTime;
@@ -37,13 +37,13 @@ public class Location extends BaseEntity{
     private List<Review> reviews = new ArrayList<>();
 
     @Builder
-    public Location(Long id, String name, String address, String telephone, Long sumRating, Long countRating, String closedDay, String openTime, Long latitude, Long lontitude) {
+    public Location(Long id, String name, String address, String telephone, Long ratingSum, Long ratingCount, String closedDay, String openTime, Long latitude, Long lontitude) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.telephone = telephone;
-        this.sumRating = sumRating;
-        this.countRating=countRating;
+        this.ratingSum = ratingSum;
+        this.ratingCount= ratingCount;
         this.closedDay = closedDay;
         this.openTime = openTime;
         this.latitude = latitude;

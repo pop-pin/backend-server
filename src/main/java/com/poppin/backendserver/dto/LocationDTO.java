@@ -11,8 +11,8 @@ public class LocationDTO {
     private String name;
     private String address;
     private String telephone;
-    private Long sumRating;
-    private Long countRating;
+    private Long ratingSum;
+    private Long ratingCount;
     private String closedDay;
     private String openTime;
     private Long latitude;
@@ -24,21 +24,21 @@ public class LocationDTO {
         this.name = location.getName();
         this.address = location.getAddress();
         this.telephone = location.getTelephone();
-        this.sumRating = location.getSumRating();
-        this.countRating = location.getCountRating();
+        this.ratingSum = location.getRatingSum();
+        this.ratingCount = location.getRatingCount();
         this.closedDay = location.getClosedDay();
         this.openTime = location.getOpenTime();
         this.latitude = location.getLatitude();
         this.lontitude = location.getLontitude();
     }
     @Builder
-    public LocationDTO(Long id, String name, String address, String telephone, Long sumRating, Long countRating, String closedDay, String openTime, Long latitude, Long lontitude) {
+    public LocationDTO(Long id, String name, String address, String telephone, Long ratingSum, Long ratingCount, String closedDay, String openTime, Long latitude, Long lontitude) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.telephone = telephone;
-        this.sumRating = sumRating;
-        this.countRating = countRating;
+        this.ratingSum = ratingSum;
+        this.ratingCount = ratingCount;
         this.closedDay = closedDay;
         this.openTime = openTime;
         this.latitude = latitude;
