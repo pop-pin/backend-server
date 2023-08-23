@@ -9,6 +9,7 @@ import com.poppin.backendserver.service.ReviewService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -33,9 +34,10 @@ public class LocationController {
      * 테스트완료
      */
     @GetMapping("/search")
-        public Page<LocationDTO> searchLocation(@RequestParam("keyword") String keyword, @PageableDefault(size = 6)Pageable pageable) {
-        Page<Location> page = locationService.searchLocation(keyword, pageable);
-        return page.map(LocationDTO::new);
+        public Page<LocationDTO> searchLocation(@RequestParam("keyword") String keyword, @RequestParam("page") int page, @RequestParam("size") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Location> pages = locationService.searchLocation(keyword, pageable);
+        return pages.map(LocationDTO::new);
     }
 
     /**
