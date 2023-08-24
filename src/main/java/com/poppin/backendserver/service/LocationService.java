@@ -54,15 +54,15 @@ public class LocationService {
         }
     }
 
-
-    public List<Review> getReviews(Long id) {
-        return locationRepository.findById(id)
-                .map(Location::getReviews)
-                .orElseThrow(() -> new IllegalStateException("리뷰 불러오기에 실패하였습니다."));
-    }
     @Transactional
     public Long deleteLocation(Long id) {
         locationRepository.deleteById(id);
         return id;
     }
+
+//    public List<Review> getReviews(Long id) {
+//        return locationRepository.findById(id)
+//                .map(Location::getReviews)
+//                .orElseThrow(() -> new IllegalStateException("리뷰 불러오기에 실패하였습니다."));
+//    }
 }

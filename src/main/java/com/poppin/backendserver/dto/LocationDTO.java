@@ -17,7 +17,6 @@ public class LocationDTO {
     private String openTime;
     private Long latitude;
     private Long lontitude;
-    private List<ReviewDTO> reviews;
 
     public LocationDTO(Location location){
         this.id = location.getId();
