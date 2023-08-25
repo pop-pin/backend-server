@@ -105,5 +105,4 @@ public class LocationController {
         Long deletedLocationId = locationService.deleteLocation(id);
         return ResponseEntity.ok(deletedLocationId);
     }
-
 }
