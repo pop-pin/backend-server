@@ -25,8 +25,7 @@ import java.util.Optional;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -130,7 +129,8 @@ public class LocationControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(locationDTO)))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().string("0"));
     }
 
     @Test
@@ -138,16 +138,19 @@ public class LocationControllerTest {
         Long locationId = 1L;
 
         LocationDTO locationDTO = LocationDTO.builder()
+                .id(1L)
                 .telephone("01012347777" )
                 .closedDay("Friday")
                 .openTime("10~23")
                 .build();
 
+
         mockMvc.perform(put("/v1/locations/{location_id}", locationId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(locationDTO)))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().string("1"));
     }
 
     @Test

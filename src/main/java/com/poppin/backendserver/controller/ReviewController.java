@@ -5,9 +5,7 @@ import com.poppin.backendserver.service.LocationService;
 import com.poppin.backendserver.service.ReviewService;
 import com.poppin.backendserver.dto.ReviewDTO;
 import com.poppin.backendserver.entity.Review;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
