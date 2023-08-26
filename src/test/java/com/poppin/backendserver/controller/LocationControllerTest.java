@@ -25,6 +25,7 @@ import java.util.Optional;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -49,7 +50,7 @@ public class LocationControllerTest {
         Pageable pageable = PageRequest.of(0, 6);
         List<Location> locations = new ArrayList<Location>();
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 30; i++) {
             locations.add(Location.builder()
                     .name("apple" + i)
                     .address("korea" + i)
@@ -61,12 +62,20 @@ public class LocationControllerTest {
                     .build());
         }
 
-        Page<Location> mockPage = new PageImpl<>(locations, pageable, locations.size());
+        List<Location> pageContent = locations.subList(0, 6);
+        Page<Location> mockPage = new PageImpl<>(pageContent, pageable, locations.size());
         when(locationService.searchLocation(name, pageable)).thenReturn(mockPage);
 
         mockMvc.perform(get("/v1/locations/search?keyword={keyword}&page={page}&size={size}", "apple",0 , 6))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content[0].name").value("apple0"))
+                .andExpect(jsonPath("$.content[0].address").value("korea0"))
+                .andExpect(jsonPath("$.content[0].telephone").value("01012340"))
+                .andExpect(jsonPath("$.content[0].closedDay").value("monday"))
+                .andExpect(jsonPath("$.content[0].openTime").value("10~21"))
+                .andExpect(jsonPath("$.content[0].latitude").value(10))
+                .andExpect(jsonPath("$.content[0].lontitude").value(30));;
     }
 
     @Test
@@ -86,7 +95,14 @@ public class LocationControllerTest {
 
         mockMvc.perform(get("/v1/locations/{location_id}", locationId))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value(mockLocation.getName()))
+                .andExpect(jsonPath("$.address").value(mockLocation.getAddress()))
+                .andExpect(jsonPath("$.telephone").value(mockLocation.getTelephone()))
+                .andExpect(jsonPath("$.closedDay").value(mockLocation.getClosedDay()))
+                .andExpect(jsonPath("$.openTime").value(mockLocation.getOpenTime()))
+                .andExpect(jsonPath("$.latitude").value(mockLocation.getLatitude()))
+                .andExpect(jsonPath("$.lontitude").value(mockLocation.getLontitude()));
     }
 
     @Test
