@@ -46,4 +46,4 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         uses: Ilshidur/action-discord@master
         with:
-          args: 'backend-server deployed with version $(echo ${{ github.sha }} | cut -c 1-7)'
+          args: '`backend-server`` deployed with version `${{ github.sha }}`'
