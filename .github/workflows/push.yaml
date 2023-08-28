@@ -40,3 +40,10 @@ jobs:
           KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
         with:
           args: rollout restart deployment ${{ secrets.KUBE_DEPLOYMENT_NAME }} -n ${{ secrets.KUBE_NAMESPACE }}
+          
+      - name: Notify Deployment
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'backend-server deployed with version $(echo ${{ github.sha }} | cut -c 1-7)'
