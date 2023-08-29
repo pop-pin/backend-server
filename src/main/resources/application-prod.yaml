@@ -46,3 +46,8 @@ aws:
     region:
       static: ${S3_REGION_STATIC}
     bucket: ${S3_BUCKET}
+
+grafana:
+  otlp:
+    cloud:
+      api-key:
