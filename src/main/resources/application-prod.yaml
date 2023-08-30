@@ -37,6 +37,22 @@ management:
     web:
       exposure:
         include: prometheus
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
+            response:
+              status: true
+      sla:
+        http:
+          server:
+            requests: 100ms,150ms,250ms,500ms,1s
+            response:
+              status: 100ms,150ms,250ms,500ms,1s
+    enable:
+      jvm: true
 
 aws:
   s3:
@@ -46,8 +62,3 @@ aws:
     region:
       static: ${S3_REGION_STATIC}
     bucket: ${S3_BUCKET}
-
-grafana:
-  otlp:
-    cloud:
-      api-key:
