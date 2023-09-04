@@ -30,7 +30,7 @@ public class LocationController {
     private final LocationRepository locationRepository;
 
     /**
-     * 검색 및 페이징
+     * 검색 및 페이징 1
      */
     @GetMapping("/search")
         public Page<LocationDTO> searchLocation(@RequestParam("keyword") String keyword, @RequestParam("page") int page, @RequestParam("size") int size) {
