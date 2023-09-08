@@ -11,9 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter@Setter
+@Getter
+@Setter
 @NoArgsConstructor
-public class Location extends BaseEntity{
+public class Location extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,7 +44,7 @@ public class Location extends BaseEntity{
         this.address = address;
         this.telephone = telephone;
         this.ratingSum = ratingSum;
-        this.ratingCount= ratingCount;
+        this.ratingCount = ratingCount;
         this.closedDay = closedDay;
         this.openTime = openTime;
         this.latitude = latitude;
