@@ -27,9 +27,9 @@ public class Review extends BaseEntity {
     @JoinColumn(name = "location_id")
     private Location location;
 
-    //    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id")
-//    private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Builder
     public Review(Long id, int rating, String title, String text, Location location) {

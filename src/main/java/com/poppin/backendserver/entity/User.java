@@ -35,8 +35,8 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserRole userRole;
-//    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
-//    private List<Review> reviews = new ArrayList<>();
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
+    private List<Review> reviews = new ArrayList<>();
 
     @Builder
     public User(String name, Gender gender, String phone, Integer age, String profileImageUrl, String email, UserRole userRole) {

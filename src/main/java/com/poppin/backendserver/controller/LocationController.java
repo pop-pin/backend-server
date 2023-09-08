@@ -27,8 +27,6 @@ public class LocationController {
     private final LocationService locationService;
     private final ReviewService reviewService;
 
-    private final LocationRepository locationRepository;
-
     /**
      * 검색 및 페이징 1
      */

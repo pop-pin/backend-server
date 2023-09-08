@@ -1,20 +1,26 @@
 package com.poppin.backendserver.controller;
 
+import com.poppin.backendserver.dto.ReviewDTO;
 import com.poppin.backendserver.dto.UserDTO;
+import com.poppin.backendserver.entity.Review;
 import com.poppin.backendserver.entity.User;
 import com.poppin.backendserver.repository.UserRepository;
+import com.poppin.backendserver.service.ReviewService;
 import com.poppin.backendserver.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("v1/user")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-    private final UserRepository userRepository;
+    private final ReviewService reviewService;
 
     /**
      * 특정 유저 정보 가져오기
@@ -27,6 +33,17 @@ public class UserController {
             return ResponseEntity.ok(userDto);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    /**
+     * 특정 유저가 작성한 리뷰 가져오기
+     */
+    @GetMapping("/{user_id}/reviews")
+    public ResponseEntity<List<ReviewDTO>> getReviews(@PathVariable("user_id") Long id) {
+        List<ReviewDTO> reviewDTO = reviewService.getUserReview(id).stream()
+                .map(ReviewDTO::new)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(reviewDTO);
     }
 
     /**
