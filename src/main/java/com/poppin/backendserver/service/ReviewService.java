@@ -28,6 +28,9 @@ public class ReviewService {
         return reviewRepository.findByLocationId(location_id);
     }
 
+    public List<Review> getUserReview(Long user_id) {
+        return reviewRepository.findByUserId(user_id);
+    }
     @Transactional
     public void updateReview(Long id, Review updateReview) {
         Optional<Review> optionalReview = reviewRepository.findById(id);

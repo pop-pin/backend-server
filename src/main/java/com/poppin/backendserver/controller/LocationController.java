@@ -27,13 +27,11 @@ public class LocationController {
     private final LocationService locationService;
     private final ReviewService reviewService;
 
-    private final LocationRepository locationRepository;
-
     /**
-     * 검색 및 페이징
+     * 검색 및 페이징 1
      */
     @GetMapping("/search")
-        public Page<LocationDTO> searchLocation(@RequestParam("keyword") String keyword, @RequestParam("page") int page, @RequestParam("size") int size) {
+    public Page<LocationDTO> searchLocation(@RequestParam("keyword") String keyword, @RequestParam("page") int page, @RequestParam("size") int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Location> pages = locationService.searchLocation(keyword, pageable);
         return pages.map(LocationDTO::new);
@@ -45,7 +43,7 @@ public class LocationController {
     @GetMapping("/{location_id}")
     public ResponseEntity<LocationDTO> getLocation(@PathVariable("location_id") Long id) {
         Optional<Location> location = locationService.getLocation(id);
-        if(location.isPresent()) {
+        if (location.isPresent()) {
             LocationDTO locationDTO = new LocationDTO(location.get());
             return ResponseEntity.ok(locationDTO);
         }
