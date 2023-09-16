@@ -40,6 +40,11 @@ public class UserController {
      */
     @GetMapping("/{user_id}/reviews")
     public ResponseEntity<List<ReviewDTO>> getReviews(@PathVariable("user_id") Long id) {
+        Optional<User> user = userService.getUser(id);
+        if (user.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
         List<ReviewDTO> reviewDTO = reviewService.getUserReview(id).stream()
                 .map(ReviewDTO::new)
                 .collect(Collectors.toList());

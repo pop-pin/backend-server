@@ -55,6 +55,10 @@ public class LocationController {
      */
     @GetMapping("/{location_id}/reviews")
     public ResponseEntity<List<ReviewDTO>> getReviews(@PathVariable("location_id") Long id) {
+        Optional<Location> location = locationService.getLocation(id);
+        if (location.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
         List<ReviewDTO> reviewDTO = reviewService.getLocationReview(id).stream()
                 .map(ReviewDTO::new)
                 .collect(Collectors.toList());
