@@ -55,8 +55,8 @@ public class LocationController {
      */
     @GetMapping("/{location_id}/reviews")
     public ResponseEntity<List<ReviewDTO>> getReviews(@PathVariable("location_id") Long id) {
-        Optional<Location> location = locationService.getLocation(id);
-        if (location.isPresent()) {
+        Optional<Location> savedLocation = locationService.getLocation(id);
+        if (savedLocation.isPresent()) {
             return ResponseEntity.notFound().build();
         }
         List<ReviewDTO> reviewDTO = reviewService.getLocationReview(id).stream()
@@ -90,6 +90,10 @@ public class LocationController {
      */
     @PutMapping("/{location_id}")
     public ResponseEntity<Long> updateLocation(@PathVariable("location_id") Long id, @RequestBody LocationDTO locationDTO) {
+        Optional<Location> savedLocation = locationService.getLocation(id);
+        if (savedLocation.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
         Location location = Location.builder()
                 .telephone(locationDTO.getTelephone())
                 .closedDay(locationDTO.getClosedDay())
@@ -104,6 +108,10 @@ public class LocationController {
      */
     @DeleteMapping("/{location_id}")
     public ResponseEntity<Long> deleteLocation(@PathVariable("location_id") Long id) {
+        Optional<Location> savedLocation = locationService.getLocation(id);
+        if (savedLocation.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
         Long deletedLocationId = locationService.deleteLocation(id);
         return ResponseEntity.ok(deletedLocationId);
     }
