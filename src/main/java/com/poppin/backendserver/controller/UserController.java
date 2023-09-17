@@ -40,6 +40,11 @@ public class UserController {
      */
     @GetMapping("/{user_id}/reviews")
     public ResponseEntity<List<ReviewDTO>> getReviews(@PathVariable("user_id") Long id) {
+        Optional<User> savedUser = userService.getUser(id);
+        if (savedUser.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
         List<ReviewDTO> reviewDTO = reviewService.getUserReview(id).stream()
                 .map(ReviewDTO::new)
                 .collect(Collectors.toList());
@@ -70,6 +75,10 @@ public class UserController {
      */
     @PutMapping("/{user_id}")
     public ResponseEntity<Long> updateUser(@PathVariable("user_id") Long id, @RequestBody UserDTO userDTO) {
+        Optional<User> savedUser = userService.getUser(id);
+        if (savedUser.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
         User user = User.builder()
                 .name(userDTO.getName())
                 .phone(userDTO.getPhone())
@@ -85,6 +94,10 @@ public class UserController {
      */
     @DeleteMapping("/{user_id}")
     public ResponseEntity<Long> deleteUser(@PathVariable("user_id") Long id) {
+        Optional<User> savedUser = userService.getUser(id);
+        if (savedUser.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
         Long deletedUserId = userService.deleteUser(id);
         return ResponseEntity.ok(deletedUserId);
     }
