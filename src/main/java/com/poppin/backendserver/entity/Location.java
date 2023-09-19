@@ -37,6 +37,10 @@ public class Location extends BaseEntity {
     @OneToMany(mappedBy = "location", cascade = CascadeType.REMOVE)
     private List<Review> reviews = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "location", cascade = CascadeType.REMOVE)
+    private List<Category_item> category_items = new ArrayList<>();
+
     @Builder
     public Location(Long id, String name, String address, String telephone, Long ratingSum, Long ratingCount, String closedDay, String openTime, Long latitude, Long lontitude) {
         this.id = id;
