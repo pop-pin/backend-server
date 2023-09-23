@@ -15,8 +15,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @Transactional
 class LocationServiceTest {
-    @Autowired LocationService locationService;
-    @Autowired LocationRepository locationRepository;
+    @Autowired
+    LocationService locationService;
+    @Autowired
+    LocationRepository locationRepository;
 
     @Test
     public void 가게생성() throws Exception {
@@ -36,7 +38,7 @@ class LocationServiceTest {
         // then
         assertEquals(location, locationService.getLocation(savedId).get());
     }
-    
+
     @Test
     public void 가게이름_중복확인() throws Exception {
         // given
@@ -123,9 +125,6 @@ class LocationServiceTest {
             fail("삭제 실패");
         }
     }
-
-
-
 
 
 }
