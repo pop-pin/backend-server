@@ -54,7 +54,6 @@ jib {
 			'-Dserver.port=8080',
 			'-Dfile.encoding=UTF-8',
 			'-javaagent:/otel/opentelemetry-javaagent.jar',
-			'-Dotel.exporter=otel',
 			'-Dotel.service.name=backend-server',
 			'-Dotel.exporter.otlp.endpoint=http://grafana-agent.tempo.svc.cluster.local:4317',
 			'-Dotel.exporter.otlp.insecure=true',
