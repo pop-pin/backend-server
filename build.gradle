@@ -57,6 +57,8 @@ jib {
 			'-Dotel.service.name=backend-server',
 			'-Dotel.exporter.otlp.endpoint=http://grafana-agent.tempo.svc.cluster.local:4317',
 			'-Dotel.exporter.otlp.insecure=true',
+			'-Dotel.exporter.otlp.logs.endpoint=http://grafana-agent.tempo.svc.cluster.local:4317',
+			'-Dotel.exporter.otlp.logs.insecure=true',
 			'-Dlogging.level.org.springframework.web.filter.CommonsRequestLoggingFilter=DEBUG',
 			'-Dlogging.pattern.console=%d{yyyy-MM-dd HH:mm:ss} - %logger{36} - %msg traceID=%X{traceId} %n'
 		]
